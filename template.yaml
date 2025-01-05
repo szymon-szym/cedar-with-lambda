@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  lambda_with_permissions
+
+  Sample SAM Template for lambda_with_permissions
+
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+
+Resources:
+  GetReportS3UrlFunction:
+    Type: AWS::Serverless::Function 
+    Metadata:
+      BuildMethod: rust-cargolambda 
+      BuildProperties:
+        Binary: get_report_s3url
+    Properties:
+      CodeUri: ./rust_app   
+      Handler: bootstrap    
+      Runtime: provided.al2023
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorld:
+          Type: Api 
+          Properties:
+            Path: /get-report-url
+            Method: get
+  GetReportDataFunction:
+    Type: AWS::Serverless::Function 
+    Metadata:
+      BuildMethod: rust-cargolambda 
+      BuildProperties:
+        Binary: get_report_data
+    Properties:
+      CodeUri: ./rust_app   
+      Handler: bootstrap    
+      Runtime: provided.al2023
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorld:
+          Type: Api 
+          Properties:
+            Path: /get-report-info
+            Method: get
+
+Outputs:
+  
+  
+  
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  GetReportS3UrlFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt GetReportS3UrlFunction.Arn
+  GetReportS3UrlFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt GetReportS3UrlFunctionRole.Arn

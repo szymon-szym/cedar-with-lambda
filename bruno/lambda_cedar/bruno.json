@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "lambda_cedar",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

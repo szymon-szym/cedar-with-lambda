@@ -1,0 +1,27 @@
+[package]
+name = "permissions_lambda"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lambda_http = "0.14.0"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.134"
+base64 = "0.22.1"
+cedar-policy = "4.2.2"
+
+tokio = { version = "1", features = ["macros"] }
+http = "1.2.0"
+
+
+[[bin]]
+name = "get_report_s3url"
+path = "src/handlers/get_report_s3url.rs"
+
+[[bin]]
+name = "get_report_data"
+path = "src/handlers/get_report_data.rs"
+
+[[bin]]
+name = "set_report_data"
+path = "src/handlers/set_report_data.rs"
